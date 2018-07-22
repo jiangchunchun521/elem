@@ -1,0 +1,26 @@
+@extends("layouts.admin.default")
+@section("title","管理员列表")
+@section("content")
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>管理员姓名</th>
+            <th>Email</th>
+            <th>操作</th>
+        </tr>
+        @foreach($admins as $admin)
+            <tr>
+                <td>{{$admin->id}}</td>
+                <td>{{$admin->name}}</td>
+                <td>{{$admin->email}}</td>
+                <td>
+                    <a href="{{route("admin.edit",$admin)}}" class="btn btn-success"><i
+                                class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{{route("admin.del",$admin)}}" class="btn btn-danger"><i
+                                class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+        @endforeach
+    </table>
+    {{$admins->links()}}
+@endsection
