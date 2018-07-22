@@ -39,8 +39,10 @@ class UserController extends BaseController
                 'email' => "required|email|max:255",
                 'password' => "required|confirmed|min:6"
             ]);
+            $data=$request->all();
+            $data['password']=bcrypt($data['password']);
             //更新数据
-            $user->update($request->all());
+            $user->update($data);
             $shop->update($request->all());
             //提示
             $request->session()->flash("success", "商户编辑成功");
