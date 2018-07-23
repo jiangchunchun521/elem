@@ -1,23 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Shop;
 
-use App\Models\ShopCategory;
+use App\Models\Menu;
+use App\Models\MenuCategory;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
-class ShopCategoryController extends BaseController
+class MenuCategoryController extends BaseController
 {
     /**
-     * 店铺分类列表
+     * 菜品分类列表
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $cates = ShopCategory::paginate(3);
+        $shopId = Auth::user()->shop_id;
+        $shop = Shop::where('id', '=', $shopId)->first();
+        //dd($shopName);
+        $cates = MenuCategory::paginate(3);
         //显示视图并传递数据
-        return view("admin.shop_category.index", compact("cates"));
+        return view("shop.menu_category.index", compact("cates", "shop"));
     }
 
     /**
@@ -27,6 +32,7 @@ class ShopCategoryController extends BaseController
      */
     public function add(Request $request)
     {
+        $shopId = Auth::user()->shop_id;
         //判断是不是post提交
         if ($request->isMethod("post")) {
             //验证
@@ -35,21 +41,16 @@ class ShopCategoryController extends BaseController
                 'captcha' => "required|captcha"
             ]);
             $data = $request->all();
-            $data['logo'] = "";
-            //判断是否上传图片
-            if ($request->file("logo")) {
-                //在data里追加上传的图片
-                $data['logo'] = $request->file("logo")->store("uploads/shop_categories", "images");
-            }
+            $data['shop_id'] = $shopId;
             //插入数据
-            ShopCategory::create($data);
+            MenuCategory::create($data);
             //提示
-            $request->session()->flash("success", "店铺分类添加成功");
+            $request->session()->flash("success", "菜品分类添加成功");
             //跳转
-            return redirect()->route("shop_category.index");
+            return redirect()->route("menu_category.index");
         }
         //显示视图
-        return view("admin.shop_category.add");
+        return view("shop.menu_category.add");
     }
 
     /**
@@ -61,7 +62,7 @@ class ShopCategoryController extends BaseController
     public function edit(Request $request, $id)
     {
         //通过id找到对象
-        $cate = ShopCategory::find($id);
+        $cate = MenuCategory::find($id);
         //判断是不是post提交
         if ($request->isMethod("post")) {
             //验证
@@ -70,27 +71,15 @@ class ShopCategoryController extends BaseController
             ]);
             //接收数据
             $data = $request->all();
-            //上传新图片
-            if (isset($data['logo'])) {
-                $fileName = $request->file("logo")->store("uploads/shop_categories", "images");
-            }
-            //在data里追加上传的图片
-            $data['logo'] = $fileName ?? "";
-            if ($data['logo'] == "") {
-                //保持原图片不变
-                $data['logo'] = $cate->logo;
-            } else {
-                File::delete($cate->logo);
-            }
             //更新数据
             $cate->update($data);
             //提示
-            $request->session()->flash("success", "店铺分类编辑成功");
+            $request->session()->flash("success", "菜品分类编辑成功");
             //跳转
-            return redirect()->route("shop_category.index");
+            return redirect()->route("menu_category.index");
         }
         //显示视图并传递数据
-        return view("admin.shop_category.edit", compact("cate"));
+        return view("shop.menu_category.edit", compact("cate"));
     }
 
     /**
@@ -102,13 +91,20 @@ class ShopCategoryController extends BaseController
     public function del(Request $request, $id)
     {
         //通过id找到对象
-        $cate = ShopCategory::findOrFail($id);
+        $cate = MenuCategory::findOrFail($id);
+        $menu = Menu::where('category_id','=',$id)->first();
+        //dd($menu['category_id']);
+        if ($menu['category_id'] == $id) {
+            //提示
+            $request->session()->flash("info", "该类型有菜品,不能删除");
+            //跳转
+            return redirect()->back();
+        }
         //删除数据
         $cate->delete();
-        File::delete($cate->logo);
         //提示
-        $request->session()->flash("success", "店铺分类删除成功");
+        $request->session()->flash("success", "菜品分类删除成功");
         //跳转
-        return redirect()->route("shop_category.index");
+        return redirect()->route("menu_category.index");
     }
 }

@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopCategory extends Model
 {
-    //设置可修改
-    public $fillable=['name','logo','status'];
+    //设置可修改字段
+    public $fillable = ['name', 'logo', 'status'];
 }

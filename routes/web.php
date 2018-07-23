@@ -48,6 +48,14 @@ Route::domain('shop.elem.com')->namespace('Shop')->group(function () {
     Route::any('user/login',"UserController@login")->name('user.login');
     Route::get('user/logout',"UserController@logout")->name('user.logout');
     Route::any('user/modify',"UserController@modify")->name('user.modify');
-    //Route::any('user/edit/{id}',"UserController@edit")->name('user.edit');
-    //Route::get('user/del/{id}',"UserController@del")->name('user.del');
+    //菜品分类
+    Route::get('menu_category/index',"MenuCategoryController@index")->name('menu_category.index');
+    Route::any('menu_category/add',"MenuCategoryController@add")->name('menu_category.add');
+    Route::any('menu_category/edit/{id}',"MenuCategoryController@edit")->name('menu_category.edit');
+    Route::get('menu_category/del/{id}',"MenuCategoryController@del")->name('menu_category.del');
+    //菜品
+    Route::get('menu/index',"MenuController@index")->name('menu.index');
+    Route::any('menu/add',"MenuController@add")->name('menu.add');
+    Route::any('menu/edit/{id}',"MenuController@edit")->name('menu.edit');
+    Route::get('menu/del/{id}',"MenuController@del")->name('menu.del');
 });

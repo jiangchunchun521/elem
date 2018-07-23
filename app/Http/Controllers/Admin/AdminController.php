@@ -17,7 +17,7 @@ class AdminController extends BaseController
      */
     public function index()
     {
-        $admins = Admin::paginate(3);
+        $admins = Admin::orderBy('id')->paginate(3);
         //显示视图并传递参数
         return view("admin.admin.index", compact("admins"));
     }
@@ -175,6 +175,10 @@ class AdminController extends BaseController
      */
     public function del(Request $request, $id)
     {
+        if($id==1){
+            //跳转
+            return back()->with("info","超级管理员不能删除");
+        }
         //通过id找到对象
         $admin = Admin::findOrFail($id);
         //删除数据

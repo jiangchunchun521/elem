@@ -110,7 +110,7 @@ class ShopController extends BaseController
                 //保持原图片不变
                 $data['shop_img'] = $shop->shop_img;
             } else {
-                @unlink($shop->shop_img);
+                File::delete($shop->shop_img);
             }
             //更新数据
             $shop->update($data);
@@ -136,7 +136,7 @@ class ShopController extends BaseController
         $user = User::findOrFail($id);
         //删除数据
         $shop->delete();
-        @unlink($shop->shop_img);
+        File::delete($shop->shop_img);
         $user->delete();
         //提示
         $request->session()->flash("success", "商家信息删除成功");

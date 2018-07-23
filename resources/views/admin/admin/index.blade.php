@@ -16,8 +16,10 @@
                 <td>
                     <a href="{{route("admin.edit",$admin)}}" class="btn btn-success"><i
                                 class="glyphicon glyphicon-edit"></i></a>
-                    <a href="{{route("admin.del",$admin)}}" class="btn btn-danger"><i
-                                class="glyphicon glyphicon-trash"></i></a>
+                    @if($admin->id!=1)
+                        <a href="{{route("admin.del",$admin)}}" class="btn btn-danger"><i
+                                    class="glyphicon glyphicon-trash"></i></a>
+                    @endif
                 </td>
             </tr>
         @endforeach

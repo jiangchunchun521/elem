@@ -48,14 +48,14 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            {{--<h1>
+            <h1>
                 Dashboard
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Dashboard</li>
-            </ol>--}}
+            </ol>
         </section>
         <div class="container-fluid">
         {{--引入错误 提示--}}
@@ -63,8 +63,10 @@
         {{--引用户 消息提示--}}
         @include("layouts.shop._msg")
         <!-- Main content -->
-        @yield("content")
-        <!-- /.content -->
+            <secton class="content">
+                @yield("content")
+            </secton>
+            <!-- /.content -->
         </div>
     </div>
     <!-- /.content-wrapper -->

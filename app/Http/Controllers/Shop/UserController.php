@@ -18,8 +18,9 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = User::paginate(3);
-        $shops = Shop::paginate(3);
+        $shopId=Auth::user()->shop_id;
+        $users = User::where('id','=',Auth::user()->id)->paginate(3);
+        $shops = Shop::where('id','=',$shopId)->paginate(3);
         //显示视图并传递数据
         return view("shop.user.index", compact("users", "shops"));
     }
