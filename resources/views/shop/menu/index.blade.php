@@ -21,7 +21,8 @@
                                    value="{{request()->input('maxPrice')}}">
                             <input type="text" name="keyword" class="form-control" placeholder="请输入菜品名称"
                                    value="{{request()->input('keyword')}}">
-                            <input type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i>
+                            <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i>
+                            </button>
                         </form>
                     </div>
                 </div>

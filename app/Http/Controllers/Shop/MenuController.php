@@ -27,8 +27,8 @@ class MenuController extends BaseController
         $minPrice = $request->input('minPrice');
         $maxPrice = $request->input('maxPrice');
         $keyword = $request->input('keyword');
-        $query = DB::table('menus');
-        //$query = Menu::orderBy('id');
+        //$query = DB::table('menus');
+        $query = Menu::orderBy('id');
         if ($minPrice !== null) {
             $query->where('goods_price', '>=', $minPrice);
         }
