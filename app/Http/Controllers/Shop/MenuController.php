@@ -8,7 +8,7 @@ use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class MenuController extends BaseController
 {
@@ -24,13 +24,20 @@ class MenuController extends BaseController
         //得到所有菜品类型
         $cates = MenuCategory::all();
         //接收参数
+        $categoryId = $request->input('category_id');
         $minPrice = $request->input('minPrice');
         $maxPrice = $request->input('maxPrice');
         $keyword = $request->input('keyword');
-        //$query = DB::table('menus');
         $query = Menu::orderBy('id');
+        if ($categoryId !== null) {
+            $query->where('category_id', '=', $categoryId);
+        }
         if ($minPrice !== null) {
             $query->where('goods_price', '>=', $minPrice);
+        }
+        if ($minPrice !== null && $maxPrice !== null) {
+            $query->where('goods_price', '>=', $minPrice)
+                ->where('goods_price', '<=', $maxPrice);
         }
         if ($maxPrice !== null) {
             $query->where('goods_price', '<=', $maxPrice);

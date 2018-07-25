@@ -9,19 +9,19 @@
                     <div class="box-tools">
                         <form action="" class="form-inline" method="get">
                             <select name="category_id" class="form-control">
-                                <option value="0">请选择菜品分类</option>
+                                <option value="">请选择菜品分类</option>
                                 @foreach($cates as $cate)
                                     <option value="{{$cate->id}}"
                                             @if($cate->id==request()->input('category_id')) selected @endif >{{$cate->name}}</option>
                                 @endforeach
                             </select>
                             <input type="text" name="minPrice" class="form-control" size="2" placeholder="最低价"
-                                   value="{{request()->input('minPrice')}}">
+                                   value="{{request()->input('minPrice')}}"> -
                             <input type="text" name="maxPrice" class="form-control" size="2" placeholder="最高价"
                                    value="{{request()->input('maxPrice')}}">
                             <input type="text" name="keyword" class="form-control" placeholder="请输入菜品名称"
                                    value="{{request()->input('keyword')}}">
-                            <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i>
+                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
                             </button>
                         </form>
                     </div>

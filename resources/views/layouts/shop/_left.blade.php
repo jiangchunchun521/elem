@@ -69,6 +69,17 @@
                     <li><a href="{{route('menu.add')}}"><i class="fa fa-circle-o"></i> 添加菜品</a></li>
                 </ul>
             </li>
+            <li class="active treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>活动管理</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="active"><a href="{{route('activity.index')}}"><i class="fa fa-circle-o"></i> 活动列表</a></li>
+                </ul>
+            </li>
             <li class="header">LABELS</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>

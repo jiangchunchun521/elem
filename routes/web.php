@@ -39,6 +39,14 @@ Route::domain('admin.elem.com')->namespace('Admin')->group(function () {
     Route::any('shop/check/{id}',"ShopController@check")->name('shop.check');
     Route::any('shop/edit/{id}',"ShopController@edit")->name('shop.edit');
     Route::get('shop/del/{id}',"ShopController@del")->name('shop.del');
+    //活动
+    Route::get('activity/index',"ActivityController@index")->name('activities.index');
+    Route::get('activity/unStart',"ActivityController@unStart")->name('activities.unStart');
+    Route::get('activity/going',"ActivityController@going")->name('activities.going');
+    Route::get('activity/over',"ActivityController@over")->name('activities.over');
+    Route::any('activity/add',"ActivityController@add")->name('activities.add');
+    Route::any('activity/edit/{id}',"ActivityController@edit")->name('activities.edit');
+    Route::get('activity/del/{id}',"ActivityController@del")->name('activities.del');
 });
 //商户shop
 Route::domain('shop.elem.com')->namespace('Shop')->group(function () {
@@ -58,4 +66,7 @@ Route::domain('shop.elem.com')->namespace('Shop')->group(function () {
     Route::any('menu/add',"MenuController@add")->name('menu.add');
     Route::any('menu/edit/{id}',"MenuController@edit")->name('menu.edit');
     Route::get('menu/del/{id}',"MenuController@del")->name('menu.del');
+    //活动
+    Route::get('activity/index',"ActivityController@index")->name('activity.index');
+    Route::any('activity/show/{id}',"ActivityController@show")->name('activity.show');
 });

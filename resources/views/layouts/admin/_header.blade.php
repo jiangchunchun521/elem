@@ -28,6 +28,7 @@
                         <li><a href="{{route('users.index')}}">注册信息</a></li>
                     </ul>
                 </li>
+                <li><a href="{{route('activities.index')}}">活动管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @auth("admin")
