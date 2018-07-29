@@ -28,7 +28,7 @@
                                 <td>{{$shop['shop_name']}}</td>
                                 <td>{{$cate->description}}</td>
                                 <td>
-                                    @if($cate->id==1&&$cate->is_selected==1)
+                                    @if($cate->is_selected==1)
                                         <i class="glyphicon glyphicon-ok" style="color: chartreuse"></i>
                                     @else
                                         <i class="glyphicon glyphicon-remove" style="color: red"></i>

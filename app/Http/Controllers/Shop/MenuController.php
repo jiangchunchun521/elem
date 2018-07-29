@@ -46,7 +46,7 @@ class MenuController extends BaseController
             $query->where('goods_name', 'like', "%{$keyword}%");
         }
         //得到所有数据并搜索分页
-        $menus = $query->paginate(3);
+        $menus = $query->where('shop_id',$shopId)->paginate(3);
         //显示视图并传递数据
         return view("shop.menu.index", compact("menus", "shop", "cates"));
     }
@@ -60,7 +60,7 @@ class MenuController extends BaseController
     {
         $shopId = Auth::user()->shop_id;
         //得到所有店铺类型
-        $cates = MenuCategory::all();
+        $cates = MenuCategory::where('shop_id',$shopId)->get();
         //判断是不是post提交
         if ($request->isMethod("post")) {
             //验证
@@ -102,10 +102,11 @@ class MenuController extends BaseController
      */
     public function edit(Request $request, $id)
     {
+        $shopId = Auth::user()->shop_id;
         //通过id找到对象
         $menu = Menu::find($id);
         //得到所有店铺类型
-        $cates = MenuCategory::all();
+        $cates = MenuCategory::where('shop_id',$shopId)->get();
         //判断是不是post提交
         if ($request->isMethod("post")) {
             //验证

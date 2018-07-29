@@ -35,10 +35,10 @@
                     <label for="is_selected" class="col-sm-2 control-label">默认菜品分类</label>
                     <div class="col-sm-10">
                         <label class="radio-inline">
-                            <input type="radio" name="is_selected" id="inlineRadio1" value="1" checked>是
+                            <input type="radio" name="is_selected" id="inlineRadio1" value="1">是
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="is_selected" id="inlineRadio2" value="0">否
+                            <input type="radio" name="is_selected" id="inlineRadio2" value="0"  checked>否
                         </label>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ class MenuCategoryController extends BaseController
         $shopId = Auth::user()->shop_id;
         $shop = Shop::where('id', '=', $shopId)->first();
         //dd($shopName);
-        $cates = MenuCategory::paginate(3);
+        $cates = MenuCategory::where('shop_id', $shopId)->paginate(3);
         //显示视图并传递数据
         return view("shop.menu_category.index", compact("cates", "shop"));
     }
@@ -42,6 +42,11 @@ class MenuCategoryController extends BaseController
             ]);
             $data = $request->all();
             $data['shop_id'] = $shopId;
+            //判断
+            if ($request->post('is_selected')) {
+                //把表里所的is_selected设置0
+                MenuCategory::where("is_selected", 1)->where('shop_id', $shopId)->update(['is_selected' => 0]);
+            }
             //插入数据
             MenuCategory::create($data);
             //提示
@@ -92,7 +97,7 @@ class MenuCategoryController extends BaseController
     {
         //通过id找到对象
         $cate = MenuCategory::findOrFail($id);
-        $menu = Menu::where('category_id','=',$id)->first();
+        $menu = Menu::where('category_id', '=', $id)->first();
         //dd($menu['category_id']);
         if ($menu['category_id'] == $id) {
             //提示
