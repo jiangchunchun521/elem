@@ -157,7 +157,7 @@ class MemberController extends BaseController
         if ($member) {
             //密码加密
             $data['password'] = bcrypt($request->post('password'));
-            $member->password=$data['password'];
+            $member->password = $data['password'];
             $member->save();
             return [
                 'status' => 'true',
@@ -173,14 +173,16 @@ class MemberController extends BaseController
      */
     public function change(Request $request)
     {
-        $data=$request->post();
-        $member=Member::findOrFail($data['id']);
-        if (Hash::check($request->post('oldPassword'), $member->password)){
-            $member->password=bcrypt($data['newPassword']);
+        $data = $request->post();
+        //通过id得到对象
+        $member = Member::findOrFail($data['id']);
+        //判断旧密码与数据库的密码是否一致
+        if (Hash::check($request->post('oldPassword'), $member->password)) {
+            $member->password = bcrypt($data['newPassword']);
             $member->save();
             return [
                 "status" => "true",
-                "message" => "修改成功"
+                "message" => "用户密码修改成功"
             ];
         }
     }
