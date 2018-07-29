@@ -28,6 +28,10 @@ class MemberController extends BaseController
         Redis::expire('tel_' . $tel, 300);*/
         //存短信验证码,设置过期时间
         Redis::setex('tel_' . $tel, 300, $code);
+        return [
+            "status" => "true",
+            "message" => "获取短信验证码成功".$code
+        ];
         //配置
         $config = [
             'access_key' => 'LTAIZOaBhGHVz35m',
@@ -39,7 +43,7 @@ class MemberController extends BaseController
         if ($response->Message === 'ok') {
             return [
                 "status" => "true",
-                "message" => "获取短信验证码成功"
+                "message" => "获取短信验证码成功" + $code
             ];
         } else {
             return [
@@ -104,6 +108,7 @@ class MemberController extends BaseController
     public function login(Request $request)
     {
         $member = Member::where('username', $request->post('name'))->first();
+        //dd($member);
         //登录成功
         if ($member && Hash::check($request->post('password'), $member->password)) {
             return [

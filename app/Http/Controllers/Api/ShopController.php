@@ -68,9 +68,9 @@ class ShopController extends BaseController
         foreach ($cates as $cate) {
             $cate->goods_list = Menu::where('category_id', $cate->id)->get();
         }
-        foreach ($cate->goods_list as $k => $v) {
+        /*foreach ($cate->goods_list as $k => $v) {
             $cate->goods_list[$k]->goods_id = $v->id;
-        }
+        }*/
         //把分类数据追加到shop
         $shop->commodity = $cates;
         return $shop;
