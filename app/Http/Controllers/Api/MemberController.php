@@ -30,20 +30,20 @@ class MemberController extends BaseController
         Redis::setex('tel_' . $tel, 300, $code);
         return [
             "status" => "true",
-            "message" => "获取短信验证码成功".$code
+            "message" => "获取短信验证码成功" . $code
         ];
         //配置
         $config = [
-            'access_key' => 'LTAIZOaBhGHVz35m',
-            'access_secret' => 'cGqV0fITIAIm7l1giOl2nQsaGoRqaD',
-            'sign_name' => '蒋春容',
+            'access_key' => env('ALIYUN_SMS_AK'),
+            'access_secret' => env('ALIYUN_SMS_AS'),
+            'sign_name' => env('ALIYUN_SMS_SIGN_NAME'),
         ];
         $aliSms = new AliSms();
         $response = $aliSms->sendSms($tel, 'SMS_140670105', ['code' => $code], $config);
         if ($response->Message === 'ok') {
             return [
                 "status" => "true",
-                "message" => "获取短信验证码成功" + $code
+                "message" => "获取短信验证码成功" . $code
             ];
         } else {
             return [
@@ -141,7 +141,7 @@ class MemberController extends BaseController
             ]
         ]);
         //验证是否有错
-        if ($validate->failed()) {
+        if ($validate->fails()) {
             //返回错误信息
             return [
                 'status' => 'false',
@@ -190,5 +190,15 @@ class MemberController extends BaseController
                 "message" => "用户密码修改成功"
             ];
         }
+    }
+
+    /**
+     * 查出当前用户的信息
+     * @param Request $request
+     * @return mixed
+     */
+    public function detail(Request $request)
+    {
+        return Member::find($request->input('user_id'));
     }
 }

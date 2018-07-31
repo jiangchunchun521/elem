@@ -10,27 +10,29 @@ window.api = {
   // 忘记密码接口
   forgetPassword: '/api/member/forget',
   // 地址列表接口
-  addressList: '/addressList.php',
+  addressList: '/api/address/index',
   // 指定地址接口
-  address: '/address.php',
+  address: '/api/address/edit',
   // 保存新增地址接口
-  addAddress: '/addAddress.php',
+  addAddress: '/api/address/add',
   // 保存修改地址接口
-  editAddress: '/editAddress.php',
+  editAddress: '/api/address/update',
   // 获得订单列表接口
-  orderList: '/orderList.php',
+  orderList: '/api/order/list',
   // 获得指定订单接口
-  order: '/order.php',
+  order: '/api/order/detail',
   // 获得商家列表接口
   businessList: '/api/shop/list',
   // 获得指定商家接口
   business: '/api/shop/index',
   // 保存购物车接口
-  addCart: '/addCart.php',
+  addCart: '/api/cart/add',
   // 获取购物车数据接口
-  cart: '/cart.php',
+  cart: '/api/cart/index',
   // 添加订单接口
-  addOrder: '/addorder.php',
+  addOrder: '/api/order/add',
   // 支付接口
-  pay: '/pay.php'
+  pay: '/api/order/pay',
+  // 用户详情接口
+  userDetail: '/api/member/detail'
 };
