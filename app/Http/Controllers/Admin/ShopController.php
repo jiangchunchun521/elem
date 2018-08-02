@@ -22,10 +22,10 @@ class ShopController extends BaseController
         $keyword = $request->input("keyword");
         //得到所有数据并搜索分页
         $shops = Shop::where("shop_name", "like", "%$keyword%")
-                    ->orWhere("shop_rating", ">", "$keyword")
-                    ->paginate(3);
+            ->orWhere("shop_rating", ">", "$keyword")
+            ->paginate(3);
         //显示视图并传递数据
-        return view("admin.shop.index", compact("shops","query"));
+        return view("admin.shop.index", compact("shops", "query"));
     }
 
     /**
@@ -157,7 +157,7 @@ class ShopController extends BaseController
         $user = User::find($id);
         $shop->status = 1;
         $user->status = 1;
-        if ($shop->update($request->all())&&$user->update($request->all())) {
+        if ($shop->update($request->all()) && $user->update($request->all())) {
             //提示
             $request->session()->flash("success", "商家信息审核成功");
             //跳转

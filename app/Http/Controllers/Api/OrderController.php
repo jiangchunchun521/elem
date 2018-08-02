@@ -77,6 +77,8 @@ class OrderController extends BaseController
                 //插入订单商品数据
                 OrderGood::create($dataGoods);
             }
+            //清空购物车
+            Cart::where('user_id', $request->post('user_id'))->delete();
             //提交
             DB::commit();
         } catch (QueryException $exception) {
@@ -85,7 +87,7 @@ class OrderController extends BaseController
             //返回数据
             return [
                 "status" => "false",
-                "message" => $exception->getMessage(),
+                "message" => $exception->getMessage()
             ];
         }
         return [

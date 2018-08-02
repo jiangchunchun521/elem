@@ -18,18 +18,6 @@
                 <a href="{{route('user.login')}}" style="margin-left: 30px">登录</a>
             </div>
     @endguest
-    <!-- search form -->
-        {{--<form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="keyword"
-                       class="form-control" placeholder="搜索...">
-                <span class="input-group-btn">
-                <button type="submit" name="keyword" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-        </form>--}}
-        <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header" style="text-align: center"> 导 航 栏</li>
@@ -67,6 +55,19 @@
                 <ul class="treeview-menu">
                     <li class="active"><a href="{{route('menu.index')}}"><i class="fa fa-circle-o"></i> 菜品列表</a></li>
                     <li><a href="{{route('menu.add')}}"><i class="fa fa-circle-o"></i> 添加菜品</a></li>
+                </ul>
+            </li>
+            <li class="active treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>订单管理</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="active"><a href="{{route('order.index')}}"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+                    <li class="active"><a href="{{route('order.all')}}"><i class="fa fa-circle-o"></i> 订单量统计</a></li>
+                    <li class="active"><a href="{{route('order.menu')}}"><i class="fa fa-circle-o"></i> 菜品销量统计</a></li>
                 </ul>
             </li>
             <li class="active treeview">

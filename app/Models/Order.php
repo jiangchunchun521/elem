@@ -28,4 +28,10 @@ class Order extends Model
     {
         return $this->hasMany(OrderGood::class, "order_id");
     }
+
+    //通过订单找到用户
+    public function member()
+    {
+        return $this->belongsTo(Member::class, "user_id");
+    }
 }

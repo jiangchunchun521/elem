@@ -47,6 +47,17 @@ Route::domain('admin.elem.com')->namespace('Admin')->group(function () {
     Route::any('activity/add',"ActivityController@add")->name('activities.add');
     Route::any('activity/edit/{id}',"ActivityController@edit")->name('activities.edit');
     Route::get('activity/del/{id}',"ActivityController@del")->name('activities.del');
+    //订单统计
+    Route::get('order/index',"OrderController@index")->name('orders.index');
+    Route::get('order/day',"OrderController@day")->name('orders.day');
+    Route::get('order/month',"OrderController@month")->name('orders.month');
+    Route::get('order/menu',"OrderController@menu")->name('orders.menu');
+    Route::get('order/menuDay',"OrderController@menuDay")->name('orders.menuDay');
+    Route::get('order/menuMonth',"OrderController@menuMonth")->name('orders.menuMonth');
+    //会员
+    Route::get('member/index',"MemberController@index")->name('member.index');
+    Route::any('member/show/{id}',"MemberController@show")->name('member.show');
+    Route::any('member/money/{id}',"MemberController@money")->name('member.money');
 });
 //商户shop
 Route::domain('shop.elem.com')->namespace('Shop')->group(function () {
@@ -69,4 +80,15 @@ Route::domain('shop.elem.com')->namespace('Shop')->group(function () {
     //活动
     Route::get('activity/index',"ActivityController@index")->name('activity.index');
     Route::any('activity/show/{id}',"ActivityController@show")->name('activity.show');
+    //订单
+    Route::get('order/index',"OrderController@index")->name('order.index');
+    Route::any('order/show/{id}',"OrderController@show")->name('order.show');
+    Route::any('order/send/{id}',"OrderController@send")->name('order.send');
+    Route::any('order/cancel/{id}',"OrderController@cancel")->name('order.cancel');
+    Route::get('order/all',"OrderController@all")->name('order.all');
+    Route::get('order/day',"OrderController@day")->name('order.day');
+    Route::get('order/month',"OrderController@month")->name('order.month');
+    Route::get('order/menu',"OrderController@menu")->name('order.menu');
+    Route::get('order/menuDay',"OrderController@menuDay")->name('order.menuDay');
+    Route::get('order/menuMonth',"OrderController@menuMonth")->name('order.menuMonth');
 });

@@ -29,6 +29,16 @@
                     </ul>
                 </li>
                 <li><a href="{{route('activities.index')}}">活动管理</a></li>
+                <li><a href="{{route('member.index')}}">会员管理</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">订单管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('orders.index')}}">订单量统计</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{route('orders.menu')}}">菜品销量统计</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @auth("admin")
