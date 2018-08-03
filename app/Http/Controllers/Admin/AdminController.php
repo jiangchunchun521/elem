@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends BaseController
 {
@@ -129,14 +130,18 @@ class AdminController extends BaseController
             $data = $request->all();
             $data['password'] = bcrypt($data['password']);
             //插入数据
-            Admin::create($data);
+            $admin = Admin::create($data);
+            //给用户对象添加角色 同步角色
+            $admin->syncRoles($request->post('role'));
             //提示
-            $request->session()->flash("success", "管理员注册成功");
+            $request->session()->flash("success", '添加' . $admin->name . '成功');
             //跳转
             return redirect()->route("admin.login");
         }
+        //得到所有角色
+        $roles = Role::all();
         //显示视图
-        return view("admin.admin.reg");
+        return view("admin.admin.reg", compact('roles'));
     }
 
     /**
@@ -158,13 +163,16 @@ class AdminController extends BaseController
             ]);
             //更新数据
             $admin->update($request->all());
+            //给用户对象添加角色 同步角色
+            $admin->syncRoles($request->post('role'));
             //提示
             $request->session()->flash("success", "管理员编辑成功");
             //跳转
             return redirect()->route("admin.index");
         }
+        $roles = Role::all();
         //显示视图并传递数据
-        return view("admin.admin.edit", compact("admin"));
+        return view("admin.admin.edit", compact("admin", 'roles'));
     }
 
     /**
@@ -175,9 +183,9 @@ class AdminController extends BaseController
      */
     public function del(Request $request, $id)
     {
-        if($id==1){
+        if ($id == 1) {
             //跳转
-            return back()->with("info","超级管理员不能删除");
+            return back()->with("info", "超级管理员不能删除");
         }
         //通过id找到对象
         $admin = Admin::findOrFail($id);

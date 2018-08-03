@@ -19,6 +19,15 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-2 control-label">角色名称</label>
+            <div class="col-sm-10">
+                @foreach($roles as $role)
+                    <input type="checkbox" name="role[]" value="{{$role->name}}"
+                           @if($admin->hasRole($role->name)) checked @endif>{{$role->name}}
+                @endforeach
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success">提交</button>
             </div>

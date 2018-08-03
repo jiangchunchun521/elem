@@ -121,3 +121,59 @@
 - 所有开发任务都是用sql语句查询出来的
 ### 要点难点及解决方案
 - 菜品销量统计[按商家分类统计]搜索显示有问题，已解决
+## Day10
+### 开发任务
+#### 平台
+- 权限管理 
+- 角色管理[添加角色时,给角色关联权限] 
+- 管理员管理[添加和修改管理员时,修改管理员的角色]
+### 设计要点
+##### RABC实现
+- 安装 composer require spatie/laravel-permission -vvv
+- 创建数据迁移 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="migrations"
+- 执行数据迁移 php artisan migrate
+- 生成配置文件 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
+- 在Admin模型中 use HasRoles
+```php
+//引入
+use HasRoles;
+protected $guard_name = 'admin';
+//添加一个权限   权限名称必需是路由的名称  后面做权限判断
+$per=Permission::create(['name'=>'shop.index','guard_name'=>'admin']);
+//给角色添加权限
+$role->syncPermissions($request->post('per'));
+//判断当前角色有没有当前权限
+$role->hasPermissionTo('权限名称');
+//给用户对象添加角色 同步角色
+$admin->syncRoles($request->post('role'));
+//取出当前角色所拥有的所有权限
+$role->permissions();
+//判断当前用户有没有当前角色
+$admin->hasRole('角色名称');
+//取出当前用户所拥有的角色 要用json_encode
+$admin->getRoleNames();
+```
+```html
+{{--例如：视图页面显示--}}
+{{str_replace(',',' | ',str_replace(['[',']','"'],'',json_encode($admin->getRoleNames(),JSON_UNESCAPED_UNICODE)))}}
+```
+- 判断权限 在E:\web\ele\app\Http\Controllers\Admin\BaseController.php 添加如下代码：
+```php
+//在这里判断用户有没有权限
+$this->middleware(function ($request, Closure $next) {
+    $admin = Auth::guard('admin')->user();
+    //判断当前路由在不在这个数组里，不在的话才验证权限，在的话不验证，还可以根据排除用户ID为1
+    if (!in_array(Route::currentRouteName(), ['admin.login', 'admin.logout']) && $admin->id !== 1) {
+        //判断当前用户有没有权限访问 路由名称就是权限名称
+        if ($admin->can(Route::currentRouteName()) === false) {
+            /* echo view('admin.fuck');
+            exit;*/
+            //显示视图 不能用return 只能exit
+            exit(view('admin.fuck'));
+        }
+    }
+    return $next($request);
+});
+```
+### 要点难点及解决方案
+- 相对应用户的角色显示有问题，已解决

@@ -6,6 +6,7 @@
             <th>ID</th>
             <th>管理员姓名</th>
             <th>Email</th>
+            <th>角色</th>
             <th>操作</th>
         </tr>
         @foreach($admins as $admin)
@@ -13,6 +14,8 @@
                 <td>{{$admin->id}}</td>
                 <td>{{$admin->name}}</td>
                 <td>{{$admin->email}}</td>
+                <td>{{str_replace(',',' | ',str_replace(['[',']','"'],'',
+                    json_encode($admin->getRoleNames(),JSON_UNESCAPED_UNICODE)))}}</td>
                 <td>
                     <a href="{{route("admin.edit",$admin)}}" class="btn btn-success"><i
                                 class="glyphicon glyphicon-edit"></i></a>

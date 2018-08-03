@@ -23,7 +23,7 @@
             <li class="header" style="text-align: center"> 导 航 栏</li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>商家管理</span>
+                    <i class="fa fa-user-o"></i> <span>商家管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -35,7 +35,7 @@
             </li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>菜品分类</span>
+                    <i class="fa fa-hourglass-half"></i> <span>菜品分类</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -47,7 +47,7 @@
             </li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>菜品管理</span>
+                    <i class="fa fa-heartbeat"></i> <span>菜品管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -59,7 +59,7 @@
             </li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>订单管理</span>
+                    <i class="fa fa-snowflake-o"></i> <span>订单管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -72,7 +72,7 @@
             </li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>活动管理</span>
+                    <i class="fa fa-users"></i> <span>活动管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

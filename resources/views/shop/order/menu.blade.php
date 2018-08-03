@@ -20,7 +20,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>123</h3>
+                    <p style="font-size: 30px">MenuDay</p>
                     <p>每日菜品销量统计</p>
                 </div>
                 <div class="icon">
@@ -34,7 +34,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3>44</h3>
+                    <p style="font-size: 30px">MenuMonth</p>
                     <p>每月菜品销量统计</p>
                 </div>
                 <div class="icon">
