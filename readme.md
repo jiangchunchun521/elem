@@ -13,9 +13,29 @@
 - 商家注册后，需要平台审核通过，账号才能使用 
 - 平台可以直接添加商家信息和账户，默认已审核通过
 ### 设计要点
+- composer create-project --prefer-dist laravel/laravel ele "5.5.*" -vvv
+- 创建表 php artisan make:model Models/ShopCategory -m
+- 创建 控制器 php artisan make:controller Admin/ShopCategoryController
+- 路由需要分组
+```php
+//平台
+Route::domain('admin.ele.com')->namespace('Admin')->group(function () {
+    //店铺分类
+    Route::get('shop_category/index',"ShopCategoryController@index");
+});
+//商户
+Route::domain('shop.ele.com')->namespace('Shop')->group(function () {
+    Route::get('user/reg',"UserController@reg");
+    Route::get('user/index',"UserController@index");
+});
+```
 - 店铺分类表shop_categories
 - 商家信息表shops
 - 商户注册表users
+#### 上传github
+- 第一次需要初始化
+- 以后每次需要先提交到本地
+- 再推送到github
 ### 要点难点及解决方案
 - 问题已解决
 ## Day2
@@ -28,6 +48,26 @@
 - 修改个人密码需要用到验证密码功能，[参考文档](https://laravel-china.org/docs/laravel/5.5/hashing)
 - 商户登录正常登录，登录之后判断店铺状态是否为1，不为1不能做任何操作
 ### 设计要点
+- 设置认证失败后回跳地址 在Exceptions/Handler.php后面添加
+```php
+/**
+* 重写实现未认证用户跳转至相应登陆页
+* @param \Illuminate\Http\Request $request
+* @param AuthenticationException $exception
+* @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+*/
+protected function unauthenticated($request, AuthenticationException $exception)
+{
+//  return $request->expectsJson()
+//      ? response()->json(['message' => $exception->getMessage()], 401)
+//      : redirect()->guest(route('login'));
+    if ($request->expectsJson()) {
+        return response()->json(['message' => $exception->getMessage()], 401);
+    } else {
+        return in_array('admin', $exception->guards()) ? redirect()->guest('/admin/login') : redirect()->guest(route('user.login'));
+    }
+}
+```
 - 平台管理员表admins
 ### 要点难点及解决方案
 - 问题已解决
