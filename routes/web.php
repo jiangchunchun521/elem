@@ -67,6 +67,11 @@ Route::domain('admin.elem.com')->namespace('Admin')->group(function () {
     Route::any('role/add', "RoleController@add")->name('role.add');
     Route::any('role/edit/{id}', "RoleController@edit")->name('role.edit');
     Route::get('role/del/{id}', "RoleController@del")->name('role.del');
+    //导航菜单
+    Route::get('nav/index', "NavController@index")->name('nav.index');
+    Route::any('nav/add', "NavController@add")->name('nav.add');
+    Route::any('nav/edit/{id}', "NavController@edit")->name('nav.edit');
+    Route::get('nav/del/{$id}', "NavController@del")->name('nav.del');
 });
 //商户shop
 Route::domain('shop.elem.com')->namespace('Shop')->group(function () {

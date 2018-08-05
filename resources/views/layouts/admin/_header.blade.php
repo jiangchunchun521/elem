@@ -16,49 +16,36 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">管理员管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('admin.index')}}">管理员列表</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{route('role.index')}}">角色列表</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{route('per.index')}}">权限列表</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">商家管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('shop_category.index')}}">店铺分类</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{route('shop.index')}}">商家信息</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{route('users.index')}}">注册信息</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{route('activities.index')}}">活动管理</a></li>
-                <li><a href="{{route('member.index')}}">会员管理</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">订单管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('orders.index')}}">订单量统计</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{{route('orders.menu')}}">菜品销量统计</a></li>
-                    </ul>
-                </li>
+                @foreach(\App\Models\Nav::where('parent_id',0)->get() as $k1=>$v1)
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{$v1->name}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @foreach(\App\Models\Nav::where('parent_id',$v1->id)->get() as $k2=>$v2)
+                                {{--@if(\Illuminate\Support\Facades\Auth::guard('admin')->user()->can($v2->url))--}}
+                                <li><a href="{{route($v2->url)}}">{{$v2->name}}</a></li>
+                                <li role="separator" class="divider"></li>
+                                {{--@endif--}}
+                            @endforeach
+                        </ul>
+                    </li>
+                @endforeach
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @auth("admin")
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">{{\Illuminate\Support\Facades\Auth::guard("admin")->user()->name}}<span class="caret"></span></a>
+                           aria-expanded="false">{{\Illuminate\Support\Facades\Auth::guard("admin")->user()->name}}<span
+                                    class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            @if(\Illuminate\Support\Facades\Auth::guard('admin')->user()->id==1)
+                                <li><a href="{{route('nav.index')}}">导航菜单管理</a></li>
+                                <li role="separator" class="divider"></li>
+                            @endif
                             <li><a href="{{route('admin.modify')}}">修改个人密码</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{route('admin.logout')}}">注销</a></li>
+                            <li role="separator" class="divider"></li>
                         </ul>
                     </li>
                 @endauth

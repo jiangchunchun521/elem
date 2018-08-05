@@ -6,7 +6,7 @@
             <th>ID</th>
             <th>管理员姓名</th>
             <th>Email</th>
-            <th>角色</th>
+            <th>角色名称</th>
             <th>操作</th>
         </tr>
         @foreach($admins as $admin)

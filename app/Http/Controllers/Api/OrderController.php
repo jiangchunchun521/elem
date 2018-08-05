@@ -8,10 +8,14 @@ use App\Models\Member;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\OrderGood;
+use App\Models\User;
+use App\Mail\OrderShipped;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Mrgoon\AliSms\AliSms;
 
 class OrderController extends BaseController
 {
@@ -90,6 +94,9 @@ class OrderController extends BaseController
                 "message" => $exception->getMessage()
             ];
         }
+        $user = User::where('shop_id', $order->shop_id)->first();
+        //通过审核发送邮件
+        Mail::to($user)->send(new OrderShipped($order));
         return [
             'status' => 'true',
             'message' => '订单，订单商品添加成功',
@@ -175,6 +182,15 @@ class OrderController extends BaseController
         //更改订单状态
         $order->status = 1;
         $order->save();
+        //配置
+        $config = [
+            'access_key' => 'LTAIZOaBhGHVz35m',
+            'access_secret' => 'cGqV0fITIAIm7l1giOl2nQsaGoRqaD',
+            'sign_name' => '蒋春容',
+        ];
+        $aliSms = new AliSms();
+        $aliSms->sendSms($member->tel, 'SMS_141670132', ['product' => $order->sn], $config);
+        //dd($response);
         return [
             'status' => 'true',
             'message' => '支付成功'

@@ -6,7 +6,12 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">权限名称</label>
             <div class="col-sm-10">
-                <input type="text" name="name" class="form-control">
+                <select class="form-control" name="name">
+                    <option value="0">请选择权限名称</option>
+                    @foreach($urls as $url)
+                        <option>{{$url}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="form-group">

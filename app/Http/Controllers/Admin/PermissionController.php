@@ -30,6 +30,10 @@ class PermissionController extends BaseController
     {
         //判断是不是post提交
         if ($request->isMethod('post')) {
+            //验证
+            $this->validate($request, [
+                'name' => 'required|unique:permissions'
+            ]);
             $name = $request->post('name');
             //添加一个权限  权限名称必需是路由的名称  后面做权限判断
             $per = Permission::create(['name' => $name, 'guard_name' => 'admin']);
@@ -38,8 +42,22 @@ class PermissionController extends BaseController
             //跳转
             return redirect()->route('per.index');
         }
+        //得到所有路由
+        $routes = Route::getRoutes();
+        //定义数组
+        $urls = [];
+        foreach ($routes as $route) {
+            if (isset($route->action['namespace'])) {
+                if ($route->action['namespace'] === "App\Http\Controllers\Admin") {
+                    if (isset($route->action['as'])) {
+                        $urls[] = $route->action['as'];
+                    }
+                }
+            }
+        }
+        //dump($urls);
         //显示视图并传递数据
-        return view('admin.per.add');
+        return view('admin.per.add',compact('urls'));
     }
 
     /**

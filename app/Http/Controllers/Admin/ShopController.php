@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Mail\OrderShipped;
 use App\Models\Shop;
 use App\Models\ShopCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class ShopController extends BaseController
 {
@@ -158,16 +160,19 @@ class ShopController extends BaseController
         $shop->status = 1;
         $user->status = 1;
         if ($shop->update($request->all()) && $user->update($request->all())) {
+            $order = \App\Models\Order::find($id);
+            //通过审核发送邮件
+            Mail::to($user)->send(new OrderShipped($order));
             //提示
             $request->session()->flash("success", "商家信息审核成功");
             //跳转
-            return redirect()->route("user.index");
+            return redirect()->route("shop.index");
         } else {
             $shop->status = -1;
             //提示
             $request->session()->flash("success", "商家信息审核失败");
             //跳转
-            return redirect()->route("user.index");
+            return redirect()->route("shop.index");
         }
     }
 }
