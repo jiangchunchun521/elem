@@ -40,6 +40,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success">提交</button>
+                <a href="{{route('nav.index')}}" class="btn btn-info">导航菜单列表</a>
             </div>
         </div>
     </form>

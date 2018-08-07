@@ -10,7 +10,6 @@
             <th>导航菜单地址</th>
             <th>上级菜单ID</th>
             <th>排序</th>
-            <th>操作</th>
         </tr>
         @foreach($navs as $nav)
             <tr>
@@ -19,12 +18,6 @@
                 <td>{{$nav->url}}</td>
                 <td>{{$nav->parent_id}}</td>
                 <td>{{$nav->sort}}</td>
-                <td>
-                    <a href="{{route("nav.edit",$nav)}}" class="btn btn-success"><i
-                                class="glyphicon glyphicon-edit"></i></a>
-                    <a href="{{route("nav.del",$nav)}}" class="btn btn-danger"><i
-                                class="glyphicon glyphicon-trash"></i></a>
-                </td>
             </tr>
         @endforeach
     </table>

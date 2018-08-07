@@ -15,7 +15,7 @@ class NavController extends Controller
      */
     public function index()
     {
-        $navs = Nav::paginate(5);
+        $navs = Nav::paginate(6);
         //显示视图并传递数据
         return view('admin.nav.index', compact('navs'));
     }

@@ -16,15 +16,16 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a>
                 </li>
-                @foreach(\App\Models\Nav::where('parent_id',0)->get() as $k1=>$v1)
+                @foreach(\App\Models\Nav::where("parent_id",0)->get() as $k1=>$v1)
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{$v1->name}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            @foreach(\App\Models\Nav::where('parent_id',$v1->id)->get() as $k2=>$v2)
-                                {{--@if(\Illuminate\Support\Facades\Auth::guard('admin')->user()->can($v2->url))--}}
-                                <li><a href="{{route($v2->url)}}">{{$v2->name}}</a></li>
-                                <li role="separator" class="divider"></li>
+                            @foreach(\App\Models\Nav::where("parent_id",$v1->id)->get() as $k2=>$v2)
+                               {{-- @if(\Illuminate\Support\Facades\Auth::guard('admin')->user()->can($v2->url)
+                                    or \Illuminate\Support\Facades\Auth::guard('admin')->user()->id===1)--}}
+                                    <li><a href="{{route($v2->url)}}">{{$v2->name}}</a></li>
+                                    <li role="separator" class="divider"></li>
                                 {{--@endif--}}
                             @endforeach
                         </ul>

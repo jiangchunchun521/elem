@@ -79,6 +79,9 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="{{route('activity.index')}}"><i class="fa fa-circle-o"></i> 活动列表</a></li>
+                    <li class="active"><a href="{{route('event.index')}}"><i class="fa fa-circle-o"></i> 抽奖活动列表</a></li>
+                    <li class="active"><a href="{{route('eventUser.index')}}"><i class="fa fa-circle-o"></i> 报名抽奖活动</a></li>
+                    <li class="active"><a href="{{route('prize.index')}}"><i class="fa fa-circle-o"></i> 查看抽奖结果</a></li>
                 </ul>
             </li>
             <li class="header">LABELS</li>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Mail\OrderShipped;
+use App\Mail\ShopShipped;
 use App\Models\Shop;
 use App\Models\ShopCategory;
 use App\Models\User;
@@ -160,9 +160,8 @@ class ShopController extends BaseController
         $shop->status = 1;
         $user->status = 1;
         if ($shop->update($request->all()) && $user->update($request->all())) {
-            $order = \App\Models\Order::find($id);
             //通过审核发送邮件
-            Mail::to($user)->send(new OrderShipped($order));
+            Mail::to($user)->send(new ShopShipped($shop));
             //提示
             $request->session()->flash("success", "商家信息审核成功");
             //跳转

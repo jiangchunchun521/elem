@@ -70,8 +70,19 @@ Route::domain('admin.elem.com')->namespace('Admin')->group(function () {
     //导航菜单
     Route::get('nav/index', "NavController@index")->name('nav.index');
     Route::any('nav/add', "NavController@add")->name('nav.add');
-    Route::any('nav/edit/{id}', "NavController@edit")->name('nav.edit');
-    Route::get('nav/del/{$id}', "NavController@del")->name('nav.del');
+    //抽奖活动
+    Route::get('event/index', "EventController@index")->name('events.index');
+    Route::any('event/add', "EventController@add")->name('events.add');
+    Route::any('event/edit/{id}', "EventController@edit")->name('events.edit');
+    Route::get('event/del/{id}', "EventController@del")->name('events.del');
+    Route::get('event/start/{id}', "EventController@start")->name('events.start');
+    //活动奖品
+    Route::get('prize/index', "EventPrizeController@index")->name('prizes.index');
+    Route::any('prize/add', "EventPrizeController@add")->name('prizes.add');
+    Route::any('prize/edit/{id}', "EventPrizeController@edit")->name('prizes.edit');
+    Route::get('prize/del/{id}', "EventPrizeController@del")->name('prizes.del');
+    //抽奖活动报名
+    Route::get('eventUser/index', "EventUserController@index")->name('eventUsers.index');
 });
 //商户shop
 Route::domain('shop.elem.com')->namespace('Shop')->group(function () {
@@ -105,4 +116,13 @@ Route::domain('shop.elem.com')->namespace('Shop')->group(function () {
     Route::get('order/menu', "OrderController@menu")->name('order.menu');
     Route::get('order/menuDay', "OrderController@menuDay")->name('order.menuDay');
     Route::get('order/menuMonth', "OrderController@menuMonth")->name('order.menuMonth');
+    //抽奖活动
+    Route::get('event/index', "EventController@index")->name('event.index');
+    Route::any('event/show/{id}', "EventController@show")->name('event.show');
+    //抽奖活动结果(奖品)
+    Route::get('prize/index', "EventPrizeController@index")->name('prize.index');
+    Route::any('prize/show/{id}', "EventPrizeController@show")->name('prize.show');
+    //抽奖活动报名
+    Route::get('eventUser/index', "EventUserController@index")->name('eventUser.index');
+    Route::any('eventUser/add', "EventUserController@add")->name('eventUser.add');
 });
