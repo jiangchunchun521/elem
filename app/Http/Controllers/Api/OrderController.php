@@ -94,9 +94,9 @@ class OrderController extends BaseController
                 "message" => $exception->getMessage()
             ];
         }
-        $user = User::where('shop_id', $order->shop_id)->first();
+        /*$user = User::where('shop_id', $order->shop_id)->first();
         //通过审核发送邮件
-        Mail::to($user)->send(new OrderShipped($order));
+        Mail::to($user)->send(new OrderShipped($order));*/
         return [
             'status' => 'true',
             'message' => '订单，订单商品添加成功',
