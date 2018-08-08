@@ -14,7 +14,7 @@ class EventUserController extends BaseController
      */
     public function index()
     {
-        $events = EventUser::paginate(3);
+        $events = EventUser::paginate(5);
         //显示视图并传递数据
         return view('admin.eventUser.index', compact('events'));
     }

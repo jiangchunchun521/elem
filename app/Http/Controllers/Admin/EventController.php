@@ -20,16 +20,6 @@ class EventController extends BaseController
     public function index()
     {
         $events = Event::paginate(3);
-        //得到所有开奖时间
-        $prizeDates = $events->pluck('prize_date')->toArray();
-        foreach ($prizeDates as $prizeDate) {
-            $event = Event::where('prize_date', $prizeDate)->first();
-            //当开奖时间<=当前时间时，状态为已开奖
-            if (date('Y-m-d h:i:s', $prizeDate) <= date('Y-m-d h:i:s', time())) {
-                $event->is_prize = 1;
-                $event->save();
-            }
-        }
         //显示视图并传递数据
         return view('admin.event.index', compact('events'));
     }
@@ -116,25 +106,26 @@ class EventController extends BaseController
 
     public function start(Request $request, $id)
     {
-        /*//通过id找到对象
-        $event = Event::find($id);*/
         //得到所有报名的商户
-        $userId = EventUser::where('event_id', $id)->pluck('user_id')->toArray();
+        $userIds = EventUser::where('event_id', $id)->pluck('user_id')->toArray();
         //打乱数组
-        shuffle($userId);
-        //随机取出中奖商户
-        $user=array_shift($userId);
+        shuffle($userIds);
         //取出该活动的奖品
-        $prize=EventPrize::where('event_id',$id)->first();
-        $prize->user_id=$user;
-        if ($prize->save()) {
-            $user = User::where('shop_id', $prize->user_id)->first();
+        $prizes = EventPrize::where('event_id', $id)->get()->shuffle();
+        foreach ($prizes as $k => $prize) {
+            $prize->user_id = $userIds[$k];
+            $prize->save();
+            $user = User::where('id', $prize->user_id)->first();
             //通过审核发送邮件
             Mail::to($user)->send(new PrizeShipped($prize));
-            //提示
-            $request->session()->flash('success', '抽奖完成');
-            //跳转
-            return redirect()->route('events.index');
         }
+        //通过id找到对象
+        $event = Event::find($id);
+        $event->is_prize = 1;
+        $event->save;
+        //提示
+        $request->session()->flash('success', '开奖成功完成');
+        //跳转
+        return redirect()->route('events.index');
     }
 }
