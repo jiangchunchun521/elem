@@ -182,7 +182,7 @@ class OrderController extends BaseController
         //更改订单状态
         $order->status = 1;
         $order->save();
-        //配置
+        //配置 发短信
         $config = [
             'access_key' => 'LTAIZOaBhGHVz35m',
             'access_secret' => 'cGqV0fITIAIm7l1giOl2nQsaGoRqaD',
