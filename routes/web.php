@@ -11,8 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+});*/
+Route::get('/', function () {
+    return view('index');
 });
 //平台admin
 Route::domain('admin.elem.com')->namespace('Admin')->group(function () {
